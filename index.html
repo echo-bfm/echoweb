@@ -51,8 +51,8 @@
     .overview { max-width: 1010px; margin: 40px auto 0; }
     .overview-heading { margin: 0 0 13px; color: var(--ink); font-size: 20px; font-weight: 750; }
     .overview video { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 8px; background: #202124; box-shadow: 0 8px 25px rgba(0,0,0,.12); object-fit: cover; }
-    .overview figcaption { margin: 11px auto 0; color: var(--muted); font-size: 13px; }
-    .hero-summary { max-width: 830px; margin: 28px auto 0; color: #444a51; font-size: 17px; line-height: 1.7; }
+    .hero-summary { max-width: 1160px; margin: 28px auto 0; color: #444a51; font-size: clamp(13px, 1.35vw, 16px); line-height: 1.65; text-align: center; }
+    .hero-summary-line { display: block; white-space: nowrap; }
 
     .section { padding: 66px 0 75px; border-top: 1px solid var(--rule); scroll-margin-top: 20px; }
     .section-title { display: table; max-width: 100%; margin: 0 auto 30px; padding-bottom: 7px; border-bottom: 3px solid #ba7547; color: var(--red); text-align: center; font-size: clamp(27px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -.025em; }
@@ -67,10 +67,7 @@
     .method-step small { display: block; margin-bottom: 7px; color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: .09em; }
     .method-step h3 { margin: 0 0 7px; color: var(--ink); font-size: 18px; line-height: 1.35; }
     .method-step p { margin: 0; color: #535b63; font-size: 14px; }
-    .equation { max-width: 850px; margin: 29px auto 0; padding: 14px 22px; border: 1px solid var(--rule); background: #fff; color: var(--ink); text-align: center; font-family: Georgia, 'Times New Roman', serif; font-size: 18px; }
-    .equation span { color: var(--muted); font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
 
-    .result-block + .result-block { margin-top: 65px; padding-top: 59px; border-top: 1px solid var(--rule); }
     .result-block h3 { margin: 0 0 10px; color: #252a30; font-size: clamp(21px, 2.25vw, 27px); text-align: center; }
     .result-lede { max-width: 880px; margin: 0 auto 22px; color: #5a626a; text-align: center; font-size: 15px; }
     .finding { max-width: 960px; margin: 23px auto 0; padding: 13px 18px; border-left: 4px solid var(--red); border-radius: 3px; background: #f0f0ed; color: #3b424a; font-size: 15px; }
@@ -87,7 +84,6 @@
     .figures-pair { display: grid; grid-template-columns: .93fr 1.07fr; gap: 18px; align-items: start; margin: 29px 0 24px; }
     .figures-pair .figure-panel { height: 100%; }
     .figures-pair img { width: 100%; }
-    .representation-note { max-width: 920px; margin: 19px auto 0; color: #646b72; font-size: 13px; }
     .mini-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin: 0 auto 28px; }
     .mini-nav a { padding: 7px 11px; border: 1px solid #d5d6d2; border-radius: 5px; color: #515a61; background: white; font-size: 13px; text-decoration: none; }
     .mini-nav a:hover { border-color: var(--red); color: var(--red); }
@@ -101,10 +97,6 @@
     .video-card video { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 6px; background: #252525; object-fit: cover; }
     .video-card figcaption { padding: 11px 4px 2px; }
     .video-card figcaption strong { display: block; color: var(--ink); font-size: 14px; line-height: 1.35; }
-    .video-card figcaption small { display: block; margin-top: 5px; color: #788087; font-family: Consolas, 'Courier New', monospace; font-size: 11px; overflow-wrap: anywhere; }
-    .video-card figcaption span { display: block; margin-top: 4px; color: #737a81; font-size: 12px; }
-    .paper-note { margin: 0 auto; padding: 22px 0 3px; color: #606870; font-size: 14px; text-align: center; }
-    footer { padding: 25px 0 40px; border-top: 1px solid var(--rule); color: #7a7e82; font-size: 12px; text-align: center; }
 
     @media (max-width: 920px) {
       .method-steps { grid-template-columns: 1fr; gap: 20px; }
@@ -120,11 +112,11 @@
       .hero h1 { font-size: 29px; }
       .overview { margin-top: 30px; }
       .hero-summary { font-size: 15px; }
+      .hero-summary-line { white-space: normal; }
       .section { padding: 48px 0 55px; }
       .section-title { margin-bottom: 25px; }
       .section-intro { font-size: 14px; }
       .figure-panel { padding: 10px; }
-      .equation { font-size: 15px; }
       .gallery-header h3 { font-size: 20px; }
       .video-grid { grid-template-columns: 1fr; }
       .table-scroll { margin-inline: -15px; width: calc(100% + 30px); border-radius: 0; }
@@ -161,9 +153,8 @@
         <figure class="overview" id="overview">
           <h2 class="overview-heading">ECHO Overview</h2>
           <video src="media/ECHO_Overview_Web_720p.mp4" poster="posters/ECHO_Demo_v15_1080p.jpg" controls playsinline preload="metadata" aria-label="ECHO Overview explanatory video"></video>
-          <figcaption>Explanatory overview video · 5 min 10 s · ECHO_Overview_Web_720p.mp4</figcaption>
         </figure>
-        <p class="hero-summary">ECHO pairs a broadly trained whole-body behavior prior with a context-conditioned residual controller. Recent proprioceptive and action history informs adaptation to changing physical dynamics, without test-time parameter updates.</p>
+        <p class="hero-summary"><span class="hero-summary-line">ECHO pairs a broadly trained whole-body behavior prior with a context-conditioned residual controller.</span><span class="hero-summary-line">Recent proprioceptive and action history informs adaptation to changing physical dynamics, without test-time parameter updates.</span></p>
       </div>
     </header>
 
@@ -192,17 +183,13 @@
             <p>A residual actor uses the learned context to adjust the frozen prior. The prior and encoder remain frozen during residual-policy training.</p>
           </article>
         </div>
-        <div class="equation" aria-label="Final action equals prior action plus context-conditioned residual action">
-          a<sub>t</sub> = a<sub>t</sub><sup>prior</sup> + a<sub>t</sub><sup>residual</sup>
-          <span> · context enters through the residual actor</span>
-        </div>
       </div>
     </section>
 
     <section class="section" id="results" aria-labelledby="results-heading">
       <div class="container">
         <h2 class="section-title" id="results-heading">Experimental Results</h2>
-        <p class="section-intro">Tables below reproduce selected results from the anonymous manuscript. SR is success rate; arrows show the preferred direction.</p>
+        <p class="section-intro">Motion-tracking results from the anonymous manuscript. SR is success rate; arrows show the preferred direction.</p>
 
         <div class="result-block" id="tracking">
           <h3>Motion Tracking Fidelity</h3>
@@ -230,35 +217,13 @@
           <p class="finding"><strong>Takeaway.</strong> On the high-dynamic benchmark, ECHO-N reaches 0.7633 SR versus 0.4500 for the same prior trained without MIAS.</p>
         </div>
 
-        <div class="result-block" id="adaptation-results">
-          <h3>In-Context Adaptation</h3>
-          <p class="result-lede">Under heavy domain randomization, ECHO-H uses interaction history to improve tracking without privileged dynamics parameters at inference.</p>
-          <div class="table-scroll" role="region" aria-label="Table 3 in-context ability" tabindex="0">
-            <table>
-              <thead><tr><th scope="col">Method</th><th scope="col">SR ↑</th><th scope="col">E<sub>g-MPJPE</sub> ↓</th><th scope="col">E<sub>MPJPE</sub> ↓</th><th scope="col">E<sub>acc</sub> ↓</th><th scope="col">E<sub>vel</sub> ↓</th></tr></thead>
-              <tbody>
-                <tr class="group"><th colspan="6" scope="rowgroup">Nominal environment</th></tr>
-                <tr><td>Vanilla</td><td>0.8892 ± 0.0003</td><td>194.541 ± 1.585</td><td>27.286 ± 0.016</td><td>0.881 ± 0.008</td><td>2.887 ± 0.006</td></tr>
-                <tr><td>Any2Track</td><td>0.8743 ± 0.0008</td><td>193.623 ± 0.738</td><td>27.846 ± 0.002</td><td>0.873 ± 0.008</td><td>2.883 ± 0.005</td></tr>
-                <tr><td>RMA-Teacher*</td><td>0.9798 ± 0.0003</td><td>189.908 ± 0.220</td><td>24.062 ± 0.010</td><td>0.849 ± 0.007</td><td>2.772 ± 0.004</td></tr>
-                <tr><td>RMA-Student</td><td>0.9763 ± 0.0008</td><td>190.329 ± 0.590</td><td>24.026 ± 0.007</td><td>0.851 ± 0.008</td><td>2.774 ± 0.005</td></tr>
-                <tr class="ours"><td>ECHO-H</td><td>0.9748 ± 0.0010</td><td>190.088 ± 0.718</td><td>24.496 ± 0.014</td><td>0.846 ± 0.008</td><td>2.760 ± 0.006</td></tr>
-                <tr class="group"><th colspan="6" scope="rowgroup">HDR environment</th></tr>
-                <tr><td>Vanilla</td><td>0.8632 ± 0.0008</td><td>230.001 ± 0.833</td><td>31.541 ± 0.018</td><td>1.088 ± 0.003</td><td>3.701 ± 0.004</td></tr>
-                <tr><td>Any2Track</td><td>0.8455 ± 0.0009</td><td>227.549 ± 0.999</td><td>31.939 ± 0.012</td><td>1.087 ± 0.003</td><td>3.709 ± 0.003</td></tr>
-                <tr><td>RMA-Teacher*</td><td>0.8827 ± 0.0021</td><td>216.826 ± 1.462</td><td>30.063 ± 0.017</td><td>1.052 ± 0.002</td><td>3.591 ± 0.002</td></tr>
-                <tr><td>RMA-Student</td><td>0.8700 ± 0.0009</td><td>224.568 ± 0.894</td><td>30.542 ± 0.014</td><td>1.065 ± 0.002</td><td>3.648 ± 0.001</td></tr>
-                <tr class="ours"><td>ECHO-H</td><td>0.8922 ± 0.0016</td><td>210.351 ± 1.017</td><td>30.463 ± 0.008</td><td>1.039 ± 0.003</td><td>3.530 ± 0.003</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">Table 3 · All methods share the same frozen ECHO-PRE backbone and residual-policy architecture in this comparison. *RMA-Teacher receives privileged dynamics information.</p>
-          <p class="finding"><strong>Takeaway.</strong> In the HDR setting, ECHO-H leads on four of five metrics: 0.8922 SR and 210.351 global MPJPE, compared with 0.8827 and 216.826 for RMA-Teacher.</p>
-        </div>
+      </div>
+    </section>
 
-        <div class="result-block" id="representation">
-          <h3>What the Context Encoder Learns</h3>
-          <p class="result-lede">The representation organizes trajectories by environment across different motions, and longer interaction histories yield more informative context.</p>
+    <section class="section" id="context-representation" aria-labelledby="context-representation-heading">
+      <div class="container">
+        <h2 class="section-title" id="context-representation-heading">Context Representation</h2>
+        <p class="section-intro">Interaction history reveals the physical environment and informs adaptation.</p>
           <div class="figures-pair">
             <figure class="figure-panel">
               <img src="figures/figure-3-context-representation.png" alt="Figure 3 t-SNE plots: ECHO forms clearer environment-wise clusters than Any2Track." width="731" height="339" loading="lazy">
@@ -269,64 +234,26 @@
               <figcaption><strong>Figure 4 · Context-length scaling.</strong> Longer histories improve environment identification, cross-motion retrieval, and payload-mass readout on LAFAN-40. Lines show means; shading shows sample standard deviation over three evaluations.</figcaption>
             </figure>
           </div>
-          <div class="table-scroll" role="region" aria-label="Table 4 context representation ablations" tabindex="0">
-            <table>
-              <thead><tr><th scope="col">Method</th><th scope="col">Env. acc. (%) ↑</th><th scope="col">mAP (%) ↑</th><th scope="col">Silhouette ↑</th><th scope="col">Mass R² ↑</th><th scope="col">Friction R² ↑</th></tr></thead>
-              <tbody>
-                <tr><td>w/o soft alignment</td><td>97.125 ± 0.636</td><td>91.282 ± 1.233</td><td>0.4337 ± 0.0084</td><td>0.7869 ± 0.0061</td><td>0.9069 ± 0.0078</td></tr>
-                <tr><td>w/o predictor</td><td>97.141 ± 0.743</td><td>93.761 ± 1.482</td><td>0.4555 ± 0.0143</td><td>0.4777 ± 0.0025</td><td>-0.0132 ± 0.0003</td></tr>
-                <tr class="ours"><td>ECHO</td><td>97.478 ± 0.762</td><td>93.872 ± 1.450</td><td>0.4642 ± 0.0105</td><td>0.8357 ± 0.0080</td><td>0.9208 ± 0.0088</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">Table 4 · Mean ± sample standard deviation over five seeds with fixed encoder checkpoints, physical environments, and probe splits. “Mass” denotes added payloads.</p>
-          <p class="representation-note">Figure 4 reports a separate context-length scaling evaluation over three runs. Its endpoint values should not be substituted for the Table 4 ablation numbers.</p>
-        </div>
-
-        <div class="result-block" id="robot-results">
-          <h3>Real-Robot Motion Tracking</h3>
-          <p class="result-lede">On Unitree G1, the evaluation covers four motions without added load and with 2 kg attached to each lower leg.</p>
-          <div class="table-scroll" role="region" aria-label="Table 9 real-robot whole-body tracking" tabindex="0">
-            <table>
-              <thead><tr><th scope="col">Method</th><th scope="col">Charleston</th><th scope="col">Single-leg balance</th><th scope="col">Sit down / stand up</th><th scope="col">Prone crawl / stand up</th></tr></thead>
-              <tbody>
-                <tr class="group"><th colspan="5" scope="rowgroup">No additional payload</th></tr>
-                <tr><td>HEFT</td><td>51.47 ± 3.68</td><td>42.53 ± 2.66</td><td>Fail</td><td>Fail</td></tr>
-                <tr><td>SONIC v1.1</td><td>54.81 ± 4.93</td><td>45.21 ± 3.61</td><td>Fail</td><td>65.84 ± 3.70</td></tr>
-                <tr><td>ECHO-PRE</td><td>48.50 ± 3.21</td><td>42.13 ± 2.45</td><td>53.70 ± 4.79</td><td>55.74 ± 4.39</td></tr>
-                <tr class="ours"><td>ECHO-N</td><td>47.98 ± 3.42</td><td>39.69 ± 2.20</td><td>49.73 ± 3.90</td><td>53.65 ± 3.49</td></tr>
-                <tr class="group"><th colspan="5" scope="rowgroup">Added payload: 2 kg per lower leg</th></tr>
-                <tr><td>Vanilla</td><td>64.23 ± 3.01</td><td>43.52 ± 1.42</td><td>51.51 ± 3.64</td><td>69.52 ± 2.35</td></tr>
-                <tr><td>RMA-Student</td><td>57.18 ± 3.56</td><td>45.39 ± 2.51</td><td>75.58 ± 3.04</td><td>77.74 ± 2.75</td></tr>
-                <tr class="ours"><td>ECHO-H</td><td>52.07 ± 2.21</td><td>41.79 ± 2.13</td><td>49.95 ± 3.55</td><td>54.41 ± 2.57</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">Table 9 · MPJPE-L in millimeters (lower is better), mean ± sample standard deviation over ten trials per motion. “Fail” means 0/10 successful trials; all numerical entries represent 10/10 successful trials.</p>
-          <p class="finding"><strong>Takeaway.</strong> ECHO-N and ECHO-H have the lowest tracking error across all four motions in their respective no-payload and added-payload settings.</p>
-        </div>
       </div>
     </section>
 
     <section class="section" id="demos" aria-labelledby="demos-heading">
       <div class="container">
         <h2 class="section-title" id="demos-heading">Demonstration Gallery</h2>
-        <p class="section-intro">The four groups below follow the supplied demo folders. Every video keeps its original filename beneath the player.</p>
+        <p class="section-intro">Explore acrobatics, ground and terrain interaction, and in-context adaptation.</p>
         <nav class="mini-nav" aria-label="Demo categories">
           <a href="#extreme-acrobatics">Extreme acrobatics</a>
           <a href="#ground-interaction">Ground interaction</a>
           <a href="#terrain-interaction">Terrain interaction</a>
           <a href="#in-context">In-context</a>
         </nav>
-        <section class="gallery-group" id="extreme-acrobatics" aria-labelledby="extreme-acrobatics-heading"><div class="gallery-header"><h3 id="extreme-acrobatics-heading">Extreme acrobatics</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/extreme-acrobatics/backflip.mp4" poster="posters/extreme-acrobatics/backflip.jpg" controls playsinline preload="none" aria-label="Backflip demonstration"></video><figcaption><strong>Backflip</strong><small>backflip.mp4</small><span>0:11</span></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/cartwheel.mp4" poster="posters/extreme-acrobatics/cartwheel.jpg" controls playsinline preload="none" aria-label="Cartwheel demonstration"></video><figcaption><strong>Cartwheel</strong><small>cartwheel.mp4</small><span>0:37</span></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/front-flip.mp4" poster="posters/extreme-acrobatics/front-flip.jpg" controls playsinline preload="none" aria-label="Front flip demonstration"></video><figcaption><strong>Front flip</strong><small>front-flip.mp4</small><span>0:10</span></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_backflip_terrain.mp4" poster="posters/extreme-acrobatics/teleop_backflip_terrain.jpg" controls playsinline preload="none" aria-label="Teleop backflip on terrain demonstration"></video><figcaption><strong>Teleop backflip on terrain</strong><small>teleop_backflip_terrain.mp4</small><span>0:17</span></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_jump_terrain.mp4" poster="posters/extreme-acrobatics/teleop_jump_terrain.jpg" controls playsinline preload="none" aria-label="Teleop jump on terrain demonstration"></video><figcaption><strong>Teleop jump on terrain</strong><small>teleop_jump_terrain.mp4</small><span>0:24</span></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_sideflip_terrain.mp4" poster="posters/extreme-acrobatics/teleop_sideflip_terrain.jpg" controls playsinline preload="none" aria-label="Teleop sideflip on terrain demonstration"></video><figcaption><strong>Teleop sideflip on terrain</strong><small>teleop_sideflip_terrain.mp4</small><span>0:18</span></figcaption></figure></div></section>
-        <section class="gallery-group" id="ground-interaction" aria-labelledby="ground-interaction-heading"><div class="gallery-header"><h3 id="ground-interaction-heading">Ground interaction</h3><span>3 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/ground-interaction/crawl.mp4" poster="posters/ground-interaction/crawl.jpg" controls playsinline preload="none" aria-label="Crawl demonstration"></video><figcaption><strong>Crawl</strong><small>crawl.mp4</small><span>0:24</span></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/push-up.mp4" poster="posters/ground-interaction/push-up.jpg" controls playsinline preload="none" aria-label="Push-up demonstration"></video><figcaption><strong>Push-up</strong><small>push-up.mp4</small><span>0:24</span></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/sit-up.mp4" poster="posters/ground-interaction/sit-up.jpg" controls playsinline preload="none" aria-label="Sit-up demonstration"></video><figcaption><strong>Sit-up</strong><small>sit-up.mp4</small><span>0:20</span></figcaption></figure></div></section>
-        <section class="gallery-group" id="terrain-interaction" aria-labelledby="terrain-interaction-heading"><div class="gallery-header"><h3 id="terrain-interaction-heading">Terrain interaction</h3><span>4 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/terrain-interaction/climb_box.mp4" poster="posters/terrain-interaction/climb_box.jpg" controls playsinline preload="none" aria-label="Climb box demonstration"></video><figcaption><strong>Climb box</strong><small>climb_box.mp4</small><span>0:32</span></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/sitdown_box.mp4" poster="posters/terrain-interaction/sitdown_box.jpg" controls playsinline preload="none" aria-label="Sit down on box demonstration"></video><figcaption><strong>Sit down on box</strong><small>sitdown_box.mp4</small><span>0:27</span></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/slope.mp4" poster="posters/terrain-interaction/slope.jpg" controls playsinline preload="none" aria-label="Slope demonstration"></video><figcaption><strong>Slope</strong><small>slope.mp4</small><span>0:14</span></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/stairs.mp4" poster="posters/terrain-interaction/stairs.jpg" controls playsinline preload="none" aria-label="Stairs demonstration"></video><figcaption><strong>Stairs</strong><small>stairs.mp4</small><span>0:30</span></figcaption></figure></div></section>
-        <section class="gallery-group" id="in-context" aria-labelledby="in-context-heading"><div class="gallery-header"><h3 id="in-context-heading">In-context</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/in-context/incontext-process.mp4" poster="posters/in-context/incontext-process.jpg" controls playsinline preload="none" aria-label="In-context process demonstration"></video><figcaption><strong>In-context process</strong><small>incontext-process.mp4</small><span>0:32</span></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_walk.mp4" poster="posters/in-context/full_loaded_walk.jpg" controls playsinline preload="none" aria-label="Full loaded walk demonstration"></video><figcaption><strong>Full loaded walk</strong><small>full_loaded_walk.mp4</small><span>0:15</span></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_kneel.mp4" poster="posters/in-context/full_loaded_kneel.jpg" controls playsinline preload="none" aria-label="Full loaded kneel demonstration"></video><figcaption><strong>Full loaded kneel</strong><small>full_loaded_kneel.mp4</small><span>0:48</span></figcaption></figure><figure class="video-card"><video src="media/in-context/legloaded_kneel_sitgetup.mp4" poster="posters/in-context/legloaded_kneel_sitgetup.jpg" controls playsinline preload="none" aria-label="Leg loaded kneel, sit, get up demonstration"></video><figcaption><strong>Leg loaded kneel, sit, get up</strong><small>legloaded_kneel_sitgetup.mp4</small><span>1:24</span></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_full.mp4" poster="posters/in-context/heavy_mani_full.jpg" controls playsinline preload="none" aria-label="Heavy manipulation · full demonstration"></video><figcaption><strong>Heavy manipulation · full</strong><small>heavy_mani_full.mp4</small><span>1:04</span></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_detail.mp4" poster="posters/in-context/heavy_mani_detail.jpg" controls playsinline preload="none" aria-label="Heavy manipulation · detail demonstration"></video><figcaption><strong>Heavy manipulation · detail</strong><small>heavy_mani_detail.mp4</small><span>0:53</span></figcaption></figure></div></section>
+        <section class="gallery-group" id="extreme-acrobatics" aria-labelledby="extreme-acrobatics-heading"><div class="gallery-header"><h3 id="extreme-acrobatics-heading">Extreme acrobatics</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/extreme-acrobatics/backflip.mp4" poster="posters/extreme-acrobatics/backflip.jpg" controls playsinline preload="none" aria-label="Backflip demonstration"></video><figcaption><strong>Backflip</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/cartwheel.mp4" poster="posters/extreme-acrobatics/cartwheel.jpg" controls playsinline preload="none" aria-label="Cartwheel demonstration"></video><figcaption><strong>Cartwheel</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/front-flip.mp4" poster="posters/extreme-acrobatics/front-flip.jpg" controls playsinline preload="none" aria-label="Front flip demonstration"></video><figcaption><strong>Front flip</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_backflip_terrain.mp4" poster="posters/extreme-acrobatics/teleop_backflip_terrain.jpg" controls playsinline preload="none" aria-label="Teleop backflip on terrain demonstration"></video><figcaption><strong>Teleop backflip on terrain</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_jump_terrain.mp4" poster="posters/extreme-acrobatics/teleop_jump_terrain.jpg" controls playsinline preload="none" aria-label="Teleop jump on terrain demonstration"></video><figcaption><strong>Teleop jump on terrain</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_sideflip_terrain.mp4" poster="posters/extreme-acrobatics/teleop_sideflip_terrain.jpg" controls playsinline preload="none" aria-label="Teleop sideflip on terrain demonstration"></video><figcaption><strong>Teleop sideflip on terrain</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="ground-interaction" aria-labelledby="ground-interaction-heading"><div class="gallery-header"><h3 id="ground-interaction-heading">Ground interaction</h3><span>3 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/ground-interaction/crawl.mp4" poster="posters/ground-interaction/crawl.jpg" controls playsinline preload="none" aria-label="Crawl demonstration"></video><figcaption><strong>Crawl</strong></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/push-up.mp4" poster="posters/ground-interaction/push-up.jpg" controls playsinline preload="none" aria-label="Push-up demonstration"></video><figcaption><strong>Push-up</strong></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/sit-up.mp4" poster="posters/ground-interaction/sit-up.jpg" controls playsinline preload="none" aria-label="Sit-up demonstration"></video><figcaption><strong>Sit-up</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="terrain-interaction" aria-labelledby="terrain-interaction-heading"><div class="gallery-header"><h3 id="terrain-interaction-heading">Terrain interaction</h3><span>4 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/terrain-interaction/climb_box.mp4" poster="posters/terrain-interaction/climb_box.jpg" controls playsinline preload="none" aria-label="Climb box demonstration"></video><figcaption><strong>Climb box</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/sitdown_box.mp4" poster="posters/terrain-interaction/sitdown_box.jpg" controls playsinline preload="none" aria-label="Sit down on box demonstration"></video><figcaption><strong>Sit down on box</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/slope.mp4" poster="posters/terrain-interaction/slope.jpg" controls playsinline preload="none" aria-label="Slope demonstration"></video><figcaption><strong>Slope</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/stairs.mp4" poster="posters/terrain-interaction/stairs.jpg" controls playsinline preload="none" aria-label="Stairs demonstration"></video><figcaption><strong>Stairs</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="in-context" aria-labelledby="in-context-heading"><div class="gallery-header"><h3 id="in-context-heading">In-context</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/in-context/incontext-process.mp4" poster="posters/in-context/incontext-process.jpg" controls playsinline preload="none" aria-label="In-context process demonstration"></video><figcaption><strong>In-context process</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_walk.mp4" poster="posters/in-context/full_loaded_walk.jpg" controls playsinline preload="none" aria-label="Full loaded walk demonstration"></video><figcaption><strong>Full loaded walk</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_kneel.mp4" poster="posters/in-context/full_loaded_kneel.jpg" controls playsinline preload="none" aria-label="Full loaded kneel demonstration"></video><figcaption><strong>Full loaded kneel</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/legloaded_kneel_sitgetup.mp4" poster="posters/in-context/legloaded_kneel_sitgetup.jpg" controls playsinline preload="none" aria-label="Leg loaded kneel, sit, get up demonstration"></video><figcaption><strong>Leg loaded kneel, sit, get up</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_full.mp4" poster="posters/in-context/heavy_mani_full.jpg" controls playsinline preload="none" aria-label="Heavy manipulation · full demonstration"></video><figcaption><strong>Heavy manipulation · full</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_detail.mp4" poster="posters/in-context/heavy_mani_detail.jpg" controls playsinline preload="none" aria-label="Heavy manipulation · detail demonstration"></video><figcaption><strong>Heavy manipulation · detail</strong></figcaption></figure></div></section>
       </div>
     </section>
-    <div class="paper-note prose">Figures 2–4 and Tables 2–4, 9 are reproduced from the supplied anonymous manuscript. <a href="ECHO_Anonymous_Paper.pdf">Read the paper PDF</a>.</div>
   </main>
-  <footer>Anonymous ECHO project page · No author or institutional attribution</footer>
   <script>
     document.querySelectorAll('video').forEach(video => {
       video.addEventListener('play', () => {
