@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Anonymous ECHO project page: method pipeline, experimental results, figures, and whole-body control demonstrations.">
+  <meta name="theme-color" content="#f8f8f6">
+  <title>ECHO — Anonymous Project Page</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f8f8f6;
+      --white: #fff;
+      --ink: #1f2329;
+      --text: #353a42;
+      --muted: #667079;
+      --red: #8e1b27;
+      --red-deep: #72121d;
+      --rule: #e2e2df;
+      --soft: #f1f1ee;
+      font-family: Arial, Helvetica, sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--text); line-height: 1.62; }
+    h1, h2, h3, h4, p, figure { margin-top: 0; }
+    a { color: var(--red); }
+    a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+    .skip { position: absolute; left: 12px; top: -60px; z-index: 10; padding: 8px 12px; background: #fff; }
+    .skip:focus { top: 12px; }
+    .container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .prose { width: min(900px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar { border-bottom: 1px solid var(--rule); background: rgba(248,248,246,.96); }
+    .topbar-inner { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .topbar .brand { color: var(--red); font-size: 19px; font-weight: 800; letter-spacing: -.035em; text-decoration: none; }
+    .topbar nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 24px; }
+    .topbar nav a { color: #4e535b; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .topbar nav a:hover { color: var(--red); }
+
+    .hero { padding: 62px 0 74px; text-align: center; }
+    .hero h1 { max-width: 1050px; margin: 0 auto; color: #171a1e; font-size: clamp(30px, 4vw, 49px); font-weight: 750; line-height: 1.22; letter-spacing: -.033em; }
+    .hero h1 span { color: var(--red); }
+    .anonymous { margin: 18px 0 0; color: #71767b; font-size: 15px; font-style: italic; }
+    .hero-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
+    .hero-links a { display: inline-flex; min-width: 94px; justify-content: center; padding: 7px 17px; border-radius: 22px; background: #303238; color: white; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .hero-links a:hover { background: var(--red); }
+    .overview { max-width: 1010px; margin: 40px auto 0; }
+    .overview-heading { margin: 0 0 13px; color: var(--ink); font-size: 20px; font-weight: 750; }
+    .overview video { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 8px; background: #202124; box-shadow: 0 8px 25px rgba(0,0,0,.12); object-fit: cover; }
+    .hero-summary { max-width: 1160px; margin: 28px auto 0; color: #444a51; font-size: clamp(13px, 1.35vw, 16px); line-height: 1.65; text-align: center; }
+    .hero-summary-line { display: block; white-space: nowrap; }
+
+    .section { padding: 66px 0 75px; border-top: 1px solid var(--rule); scroll-margin-top: 20px; }
+    .section-title { display: table; max-width: 100%; margin: 0 auto 30px; padding-bottom: 7px; border-bottom: 3px solid #ba7547; color: var(--red); text-align: center; font-size: clamp(27px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -.025em; }
+    .section-intro { max-width: 850px; margin: -9px auto 31px; color: #5a626a; text-align: center; font-size: 16px; }
+    .figure-panel { margin: 0; padding: 18px; border: 1px solid #eae9e6; border-radius: 12px; background: #fff; box-shadow: 0 9px 25px rgba(35,35,35,.045); }
+    .figure-panel img { display: block; width: 100%; height: auto; }
+    .figure-panel figcaption { margin: 12px 4px 0; color: #5e656c; font-size: 13px; line-height: 1.55; }
+    .figure-panel figcaption strong { color: var(--ink); }
+    .pipeline { max-width: 1100px; margin: 0 auto; }
+    .method-steps { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 27px; max-width: 1070px; margin: 35px auto 0; }
+    .method-step { padding-left: 18px; border-left: 3px solid var(--red); }
+    .method-step small { display: block; margin-bottom: 7px; color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: .09em; }
+    .method-step h3 { margin: 0 0 7px; color: var(--ink); font-size: 18px; line-height: 1.35; }
+    .method-step p { margin: 0; color: #535b63; font-size: 14px; }
+
+    .result-block h3 { margin: 0 0 10px; color: #252a30; font-size: clamp(21px, 2.25vw, 27px); text-align: center; }
+    .result-lede { max-width: 880px; margin: 0 auto 22px; color: #5a626a; text-align: center; font-size: 15px; }
+    .finding { max-width: 960px; margin: 23px auto 0; padding: 13px 18px; border-left: 4px solid var(--red); border-radius: 3px; background: #f0f0ed; color: #3b424a; font-size: 15px; }
+    .finding strong { color: var(--ink); }
+    .table-scroll { width: 100%; overflow-x: auto; border: 1px solid #dededb; border-radius: 7px; background: #fff; }
+    table { width: 100%; min-width: 870px; border-collapse: collapse; color: #343940; font-size: 13px; font-variant-numeric: tabular-nums; }
+    th, td { padding: 9px 11px; border-bottom: 1px solid #e7e7e4; text-align: right; white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    thead th { color: var(--ink); background: #f0f0ed; font-weight: 750; }
+    tbody tr.group th { padding: 9px 11px; border-block: 1px solid #d6d5d1; background: #f8f8f5; color: #454a50; text-align: left; font-size: 12px; letter-spacing: .02em; }
+    tbody tr.ours td { color: var(--red-deep); font-weight: 750; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .table-note { margin: 9px 2px 0; color: #687078; font-size: 12px; line-height: 1.55; }
+    .figures-pair { display: grid; grid-template-columns: .93fr 1.07fr; gap: 18px; align-items: start; margin: 29px 0 24px; }
+    .figures-pair .figure-panel { height: 100%; }
+    .figures-pair img { width: 100%; }
+    .mini-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin: 0 auto 28px; }
+    .mini-nav a { padding: 7px 11px; border: 1px solid #d5d6d2; border-radius: 5px; color: #515a61; background: white; font-size: 13px; text-decoration: none; }
+    .mini-nav a:hover { border-color: var(--red); color: var(--red); }
+    .gallery-group { padding-top: 37px; scroll-margin-top: 20px; }
+    .gallery-group + .gallery-group { margin-top: 48px; border-top: 1px solid var(--rule); }
+    .gallery-header { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-bottom: 16px; }
+    .gallery-header h3 { margin: 0; color: var(--ink); font-size: 23px; }
+    .gallery-header span { color: #8a8e91; font-size: 12px; white-space: nowrap; }
+    .video-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .video-card { margin: 0; padding: 10px; border: 1px solid #eae9e6; border-radius: 10px; background: #fff; box-shadow: 0 6px 19px rgba(30,30,30,.045); }
+    .video-card video { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 6px; background: #252525; object-fit: cover; }
+    .video-card figcaption { padding: 11px 4px 2px; }
+    .video-card figcaption strong { display: block; color: var(--ink); font-size: 14px; line-height: 1.35; }
+
+    @media (max-width: 920px) {
+      .method-steps { grid-template-columns: 1fr; gap: 20px; }
+      .figures-pair { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px) {
+      .container, .prose { width: min(100% - 30px, 1160px); }
+      .topbar-inner { padding: 11px 0; align-items: flex-start; }
+      .topbar nav { gap: 3px 12px; max-width: 78%; }
+      .topbar nav a { font-size: 11px; }
+      .hero { padding: 47px 0 55px; }
+      .hero h1 { font-size: 29px; }
+      .overview { margin-top: 30px; }
+      .hero-summary { font-size: 15px; }
+      .hero-summary-line { white-space: normal; }
+      .section { padding: 48px 0 55px; }
+      .section-title { margin-bottom: 25px; }
+      .section-intro { font-size: 14px; }
+      .figure-panel { padding: 10px; }
+      .gallery-header h3 { font-size: 20px; }
+      .video-grid { grid-template-columns: 1fr; }
+      .table-scroll { margin-inline: -15px; width: calc(100% + 30px); border-radius: 0; }
+      table { font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top" aria-label="ECHO, back to top">ECHO</a>
+      <nav aria-label="Page navigation">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#demos">Demo gallery</a>
+      </nav>
+    </div>
+  </div>
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="container">
+        <h1><span>ECHO:</span> In-Context Behavior Foundation Model<br>for Humanoid Whole-Body Control</h1>
+        <p class="anonymous">Anonymous project page</p>
+        <div class="hero-links">
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#demos">Videos</a>
+        </div>
+        <figure class="overview" id="overview">
+          <h2 class="overview-heading">ECHO Overview</h2>
+          <video src="media/ECHO_Overview_Web_720p.mp4" poster="posters/ECHO_Demo_v15_1080p.jpg" controls playsinline preload="metadata" aria-label="ECHO Overview explanatory video"></video>
+        </figure>
+        <p class="hero-summary"><span class="hero-summary-line">ECHO pairs a broadly trained whole-body behavior prior with a context-conditioned residual controller.</span><span class="hero-summary-line">Recent proprioceptive and action history informs adaptation to changing physical dynamics, without test-time parameter updates.</span></p>
+      </div>
+    </header>
+
+    <section class="section" id="method" aria-labelledby="method-heading">
+      <div class="container">
+        <h2 class="section-title" id="method-heading">Method Pipeline</h2>
+        <p class="section-intro">A broad motion-tracking prior supplies the skill; interaction context adjusts how that skill is executed.</p>
+        <figure class="figure-panel pipeline">
+          <img src="figures/figure-2-method.png" alt="Figure 2 method pipeline: MIAS behavior-prior pretraining, context representation learning, and residual adaptation." width="1656" height="749">
+          <figcaption><strong>Figure 2 · Method overview.</strong> The diagram is cropped from the anonymous manuscript. Snowflakes mark frozen modules during the relevant stage; flames mark trainable modules.</figcaption>
+        </figure>
+        <div class="method-steps">
+          <article class="method-step">
+            <small>01 · MIAS</small>
+            <h3>Build the behavior prior</h3>
+            <p>Mixed and Annealed Sampling balances targeted retries of difficult motions with broad coverage of the motion corpus while pretraining ECHO-PRE.</p>
+          </article>
+          <article class="method-step">
+            <small>02 · CONTEXT LEARNING</small>
+            <h3>Represent physical context</h3>
+            <p>A context encoder learns from state-action histories using dynamics prediction and physical-neighborhood soft alignment.</p>
+          </article>
+          <article class="method-step">
+            <small>03 · RESIDUAL ADAPTATION</small>
+            <h3>Correct the prior's action</h3>
+            <p>A residual actor uses the learned context to adjust the frozen prior. The prior and encoder remain frozen during residual-policy training.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-heading">
+      <div class="container">
+        <h2 class="section-title" id="results-heading">Experimental Results (partial)</h2>
+        <p class="section-intro">Motion-tracking results from the anonymous manuscript. SR is success rate; arrows show the preferred direction.</p>
+
+        <div class="result-block" id="tracking">
+          <h3>Motion Tracking Fidelity</h3>
+          <p class="result-lede">MIAS improves the pretrained policy on both everyday and high-dynamic motions; CRA further improves tracking precision under nominal dynamics.</p>
+          <div class="table-scroll" role="region" aria-label="Table 2 motion tracking fidelity" tabindex="0">
+            <table>
+              <thead><tr><th scope="col">Method</th><th scope="col">SR ↑</th><th scope="col">E<sub>g-MPJPE</sub> ↓</th><th scope="col">E<sub>MPJPE</sub> ↓</th><th scope="col">E<sub>acc</sub> ↓</th><th scope="col">E<sub>vel</sub> ↓</th></tr></thead>
+              <tbody>
+                <tr class="group"><th colspan="6" scope="rowgroup">AMASS-2000-Random</th></tr>
+                <tr><td>SONIC v1.1</td><td>0.9633 ± 0.0003</td><td>316.651 ± 1.649</td><td>30.411 ± 0.015</td><td>1.135 ± 0.002</td><td>3.770 ± 0.006</td></tr>
+                <tr><td>HEFT</td><td>0.9785 ± 0.0009</td><td>261.573 ± 2.352</td><td>28.524 ± 0.009</td><td>1.062 ± 0.001</td><td>3.103 ± 0.004</td></tr>
+                <tr><td>ECHO-PRE w/o MIAS</td><td>0.9720 ± 0.0005</td><td>331.235 ± 2.132</td><td>32.580 ± 0.018</td><td>1.243 ± 0.003</td><td>4.170 ± 0.008</td></tr>
+                <tr class="ours"><td>ECHO-PRE</td><td>0.9832 ± 0.0012</td><td>207.995 ± 0.970</td><td>26.595 ± 0.007</td><td>0.932 ± 0.003</td><td>3.036 ± 0.006</td></tr>
+                <tr class="ours"><td>ECHO-N</td><td>0.9827 ± 0.0003</td><td>203.149 ± 0.289</td><td>25.577 ± 0.024</td><td>0.917 ± 0.003</td><td>2.956 ± 0.007</td></tr>
+                <tr class="group"><th colspan="6" scope="rowgroup">BONES-SEED-100-HighDynamic</th></tr>
+                <tr><td>SONIC v1.1</td><td>0.5800 ± 0.0100</td><td>343.124 ± 4.421</td><td>61.791 ± 2.615</td><td>4.086 ± 0.031</td><td>10.406 ± 0.102</td></tr>
+                <tr><td>HEFT</td><td>0.6200 ± 0.0173</td><td>391.094 ± 30.758</td><td>59.562 ± 0.135</td><td>3.232 ± 0.017</td><td>8.229 ± 0.138</td></tr>
+                <tr><td>ECHO-PRE w/o MIAS</td><td>0.4500 ± 0.0100</td><td>365.075 ± 5.270</td><td>64.580 ± 0.025</td><td>4.297 ± 0.042</td><td>11.712 ± 0.145</td></tr>
+                <tr class="ours"><td>ECHO-PRE</td><td>0.7200 ± 0.0000</td><td>244.772 ± 3.143</td><td>56.521 ± 0.335</td><td>2.801 ± 0.012</td><td>7.507 ± 0.034</td></tr>
+                <tr class="ours"><td>ECHO-N</td><td>0.7633 ± 0.0115</td><td>235.410 ± 4.140</td><td>55.392 ± 0.415</td><td>2.766 ± 0.005</td><td>7.360 ± 0.017</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Table 2 · Mean ± sample standard deviation over three runs with independent action-noise seeds (σ = 0.01). AMASS-2000-Random tests everyday motions excluded from training; BONES-SEED-100-HighDynamic tests challenging motions within the training distribution.</p>
+          <p class="finding"><strong>Takeaway.</strong> On the high-dynamic benchmark, ECHO-N reaches 0.7633 SR versus 0.4500 for the same prior trained without MIAS.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="context-representation" aria-labelledby="context-representation-heading">
+      <div class="container">
+        <h2 class="section-title" id="context-representation-heading">Context Representation</h2>
+        <p class="section-intro">Interaction history reveals the physical environment and informs adaptation.</p>
+          <div class="figures-pair">
+            <figure class="figure-panel">
+              <img src="figures/figure-3-context-representation.png" alt="Figure 3 t-SNE plots: ECHO forms clearer environment-wise clusters than Any2Track." width="731" height="339" loading="lazy">
+              <figcaption><strong>Figure 3 · Context representation comparison.</strong> t-SNE projections colored by environment. ECHO shows clearer environment-wise grouping across motions than Any2Track.</figcaption>
+            </figure>
+            <figure class="figure-panel">
+              <img src="figures/figure-4-context-length.png" alt="Figure 4 plots: environment accuracy, cross-motion retrieval mAP, and payload mass R squared rise with context length." width="907" height="333" loading="lazy">
+              <figcaption><strong>Figure 4 · Context-length scaling.</strong> Longer histories improve environment identification, cross-motion retrieval, and payload-mass readout on LAFAN-40. Lines show means; shading shows sample standard deviation over three evaluations.</figcaption>
+            </figure>
+          </div>
+      </div>
+    </section>
+
+    <section class="section" id="demos" aria-labelledby="demos-heading">
+      <div class="container">
+        <h2 class="section-title" id="demos-heading">Demonstration Gallery</h2>
+        <p class="section-intro">Explore acrobatics, ground and terrain interaction, and in-context adaptation.</p>
+        <nav class="mini-nav" aria-label="Demo categories">
+          <a href="#extreme-acrobatics">Extreme acrobatics</a>
+          <a href="#ground-interaction">Ground interaction</a>
+          <a href="#terrain-interaction">Terrain interaction</a>
+          <a href="#in-context">In-context</a>
+        </nav>
+        <section class="gallery-group" id="extreme-acrobatics" aria-labelledby="extreme-acrobatics-heading"><div class="gallery-header"><h3 id="extreme-acrobatics-heading">Extreme acrobatics</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/extreme-acrobatics/backflip.mp4" poster="posters/extreme-acrobatics/backflip.jpg" controls playsinline preload="none" aria-label="Backflip demonstration"></video><figcaption><strong>Backflip</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/cartwheel-anon.mp4" poster="posters/extreme-acrobatics/cartwheel-anon.jpg" controls playsinline preload="none" aria-label="Cartwheel demonstration"></video><figcaption><strong>Cartwheel</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/front-flip-anon.mp4" poster="posters/extreme-acrobatics/front-flip-anon.jpg" controls playsinline preload="none" aria-label="Front flip demonstration"></video><figcaption><strong>Front flip</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_backflip_terrain.mp4?v=headtrack-20261012" poster="posters/extreme-acrobatics/teleop_backflip_terrain.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Teleop backflip on terrain demonstration"></video><figcaption><strong>Teleop backflip on terrain</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_jump_terrain.mp4?v=headtrack-20261012" poster="posters/extreme-acrobatics/teleop_jump_terrain.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Teleop jump on terrain demonstration"></video><figcaption><strong>Teleop jump on terrain</strong></figcaption></figure><figure class="video-card"><video src="media/extreme-acrobatics/teleop_sideflip_terrain.mp4?v=headtrack-20261012" poster="posters/extreme-acrobatics/teleop_sideflip_terrain.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Teleop sideflip on terrain demonstration"></video><figcaption><strong>Teleop sideflip on terrain</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="ground-interaction" aria-labelledby="ground-interaction-heading"><div class="gallery-header"><h3 id="ground-interaction-heading">Ground interaction</h3><span>3 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/ground-interaction/crawl.mp4?v=headtrack-20261012" poster="posters/ground-interaction/crawl.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Crawl demonstration"></video><figcaption><strong>Crawl</strong></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/push-up.mp4?v=headtrack-20261012" poster="posters/ground-interaction/push-up.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Push-up demonstration"></video><figcaption><strong>Push-up</strong></figcaption></figure><figure class="video-card"><video src="media/ground-interaction/sit-up.mp4?v=headtrack-20261012" poster="posters/ground-interaction/sit-up.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Sit-up demonstration"></video><figcaption><strong>Sit-up</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="terrain-interaction" aria-labelledby="terrain-interaction-heading"><div class="gallery-header"><h3 id="terrain-interaction-heading">Terrain interaction</h3><span>4 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/terrain-interaction/climb_box.mp4?v=climb24-20261012" poster="posters/terrain-interaction/climb_box.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Climb box demonstration"></video><figcaption><strong>Climb box</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/sitdown_box.mp4?v=headtrack-20261012" poster="posters/terrain-interaction/sitdown_box.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Sit down on box demonstration"></video><figcaption><strong>Sit down on box</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/slope.mp4?v=headtrack-20261012" poster="posters/terrain-interaction/slope.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Slope demonstration"></video><figcaption><strong>Slope</strong></figcaption></figure><figure class="video-card"><video src="media/terrain-interaction/stairs.mp4?v=headtrack-20261012" poster="posters/terrain-interaction/stairs.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Stairs demonstration"></video><figcaption><strong>Stairs</strong></figcaption></figure></div></section>
+        <section class="gallery-group" id="in-context" aria-labelledby="in-context-heading"><div class="gallery-header"><h3 id="in-context-heading">In-context</h3><span>6 videos</span></div><div class="video-grid"><figure class="video-card"><video src="media/in-context/incontext-process.mp4?v=headtrack-20261012b" poster="posters/in-context/incontext-process.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="In-context process demonstration"></video><figcaption><strong>In-context process</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_walk.mp4?v=headtrack-20261012" poster="posters/in-context/full_loaded_walk.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Full loaded walk demonstration"></video><figcaption><strong>Full loaded walk</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/full_loaded_kneel.mp4?v=headtrack-20261012" poster="posters/in-context/full_loaded_kneel.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Full loaded kneel demonstration"></video><figcaption><strong>Full loaded kneel</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/legloaded_kneel_sitgetup.mp4?v=headtrack-20261012" poster="posters/in-context/legloaded_kneel_sitgetup.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Leg loaded kneel, sit, get up demonstration"></video><figcaption><strong>Leg loaded kneel, sit, get up</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_full.mp4?v=headtrack-20261012" poster="posters/in-context/heavy_mani_full.jpg?v=headtrack-20261012" controls playsinline preload="none" aria-label="Heavy manipulation · full demonstration"></video><figcaption><strong>Heavy manipulation · full</strong></figcaption></figure><figure class="video-card"><video src="media/in-context/heavy_mani_detail.mp4" poster="posters/in-context/heavy_mani_detail.jpg" controls playsinline preload="none" aria-label="Heavy manipulation · detail demonstration"></video><figcaption><strong>Heavy manipulation · detail</strong></figcaption></figure></div></section>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('video').forEach(video => {
+      video.addEventListener('play', () => {
+        document.querySelectorAll('video').forEach(other => {
+          if (other !== video && !other.paused) other.pause();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
